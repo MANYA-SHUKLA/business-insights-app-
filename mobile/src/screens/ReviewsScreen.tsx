@@ -88,7 +88,8 @@ export function ReviewsScreen() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
-  list: { paddingHorizontal: spacing.lg, paddingBottom: spacing.xl * 2 },
+  fill: { flex: 1 },
+  list: { paddingHorizontal: spacing.lg, paddingBottom: spacing.lg, flexGrow: 1 },
   header: { paddingTop: spacing.sm, paddingBottom: spacing.md },
   title: { ...typography.title, color: colors.text },
   sub: { ...typography.body, color: colors.textMuted, marginTop: spacing.xs },

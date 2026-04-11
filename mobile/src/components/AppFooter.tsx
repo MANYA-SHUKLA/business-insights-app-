@@ -9,10 +9,7 @@ type Props = {
 
 export function AppFooter({ blendWithGradient }: Props) {
   return (
-    <View
-      style={[styles.wrap, blendWithGradient && styles.wrapGhost]}
-      accessibilityRole="text"
-    >
+    <View style={[styles.wrap, blendWithGradient && styles.wrapGhost]}>
       <Text style={[styles.text, blendWithGradient && styles.textOnGradient]}>
         Made with love by Manya Shukla · 2026
       </Text>

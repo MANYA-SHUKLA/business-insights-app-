@@ -51,43 +51,43 @@ export function LoginScreen() {
               <Text style={styles.tagline}>Sign in to view your dashboard</Text>
             </View>
             <View style={styles.card}>
-            <Text style={styles.fieldLabel}>Email</Text>
-            <TextInput
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize="none"
-              keyboardType="email-address"
-              autoCorrect={false}
-              placeholder="you@company.com"
-              placeholderTextColor={colors.textMuted}
-              style={styles.input}
-            />
-            <Text style={[styles.fieldLabel, styles.mt]}>Password</Text>
-            <TextInput
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              placeholder="••••••••"
-              placeholderTextColor={colors.textMuted}
-              style={styles.input}
-            />
-            {error ? <Text style={styles.error}>{error}</Text> : null}
-            <Pressable
-              onPress={onSubmit}
-              disabled={busy}
-              style={({ pressed }) => [
-                styles.button,
-                pressed && styles.buttonPressed,
-                busy && styles.buttonDisabled,
-              ]}
-            >
-              {busy ? (
-                <ActivityIndicator color="#0f172a" />
-              ) : (
-                <Text style={styles.buttonText}>Continue</Text>
-              )}
-            </Pressable>
-          </View>
+              <Text style={styles.fieldLabel}>Email</Text>
+              <TextInput
+                value={email}
+                onChangeText={setEmail}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                autoCorrect={false}
+                placeholder="you@company.com"
+                placeholderTextColor={colors.textMuted}
+                style={styles.input}
+              />
+              <Text style={[styles.fieldLabel, styles.mt]}>Password</Text>
+              <TextInput
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                placeholder="••••••••"
+                placeholderTextColor={colors.textMuted}
+                style={styles.input}
+              />
+              {error ? <Text style={styles.error}>{error}</Text> : null}
+              <Pressable
+                onPress={onSubmit}
+                disabled={busy}
+                style={({ pressed }) => [
+                  styles.button,
+                  pressed && styles.buttonPressed,
+                  busy && styles.buttonDisabled,
+                ]}
+              >
+                {busy ? (
+                  <ActivityIndicator color="#0f172a" />
+                ) : (
+                  <Text style={styles.buttonText}>Continue</Text>
+                )}
+              </Pressable>
+            </View>
           </View>
         </KeyboardAvoidingView>
         <AppFooter blendWithGradient />
