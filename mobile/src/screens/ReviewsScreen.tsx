@@ -61,7 +61,7 @@ export function ReviewsScreen() {
   }, [load]);
 
   return (
-    <SafeAreaView style={styles.safe} edges={["top"]}>
+    <SafeAreaView style={styles.safe} edges={["bottom"]}>
       <StatusBar style="light" />
       <FlatList
         style={styles.fill}

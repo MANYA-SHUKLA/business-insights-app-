@@ -63,7 +63,7 @@ export function BusinessProfileScreen() {
   }, [load]);
 
   return (
-    <SafeAreaView style={styles.safe} edges={["top"]}>
+    <SafeAreaView style={styles.safe} edges={["bottom"]}>
       <StatusBar style="light" />
       <ScrollView
         style={styles.fill}

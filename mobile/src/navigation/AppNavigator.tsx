@@ -2,17 +2,16 @@ import React from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 import { LoginScreen } from "../screens/LoginScreen";
 import { DashboardScreen } from "../screens/DashboardScreen";
 import { BusinessProfileScreen } from "../screens/BusinessProfileScreen";
 import { ReviewsScreen } from "../screens/ReviewsScreen";
 import { useAuth } from "../auth/AuthContext";
-import { colors } from "../theme";
+import { colors, typography } from "../theme";
+import { MainHeaderMenu, type MainStackParamList } from "./MainHeaderMenu";
 
 const Stack = createNativeStackNavigator();
-const Tabs = createBottomTabNavigator();
+const MainStack = createNativeStackNavigator<MainStackParamList>();
 
 const navTheme = {
   ...DefaultTheme,
@@ -26,36 +25,33 @@ const navTheme = {
   },
 };
 
-function MainTabs() {
+const mainHeaderOptions = {
+  headerStyle: {
+    backgroundColor: colors.bgElevated,
+  },
+  headerShadowVisible: false,
+  headerTintColor: colors.text,
+  headerTitleStyle: {
+    ...typography.subtitle,
+    color: colors.text,
+    fontWeight: "700" as const,
+  },
+  headerRight: () => <MainHeaderMenu />,
+};
+
+function MainStackNavigator() {
   return (
-    <Tabs.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: colors.bgElevated,
-          borderTopColor: colors.cardBorder,
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
-        },
-        tabBarActiveTintColor: colors.accent,
-        tabBarInactiveTintColor: colors.textMuted,
-        tabBarLabelStyle: { fontSize: 12, fontWeight: "600" },
-        tabBarIcon: ({ color, size }) => {
-          const map: Record<string, keyof typeof Ionicons.glyphMap> = {
-            Dashboard: "stats-chart",
-            Business: "storefront-outline",
-            Reviews: "chatbubbles-outline",
-          };
-          const name = map[route.name] || "ellipse";
-          return <Ionicons name={name} size={size} color={color} />;
-        },
-      })}
+    <MainStack.Navigator
+      initialRouteName="Dashboard"
+      screenOptions={{
+        ...mainHeaderOptions,
+        contentStyle: { backgroundColor: colors.bg },
+      }}
     >
-      <Tabs.Screen name="Dashboard" component={DashboardScreen} options={{ title: "Insights" }} />
-      <Tabs.Screen name="Business" component={BusinessProfileScreen} options={{ title: "Profile" }} />
-      <Tabs.Screen name="Reviews" component={ReviewsScreen} />
-    </Tabs.Navigator>
+      <MainStack.Screen name="Dashboard" component={DashboardScreen} options={{ title: "Insights" }} />
+      <MainStack.Screen name="Business" component={BusinessProfileScreen} options={{ title: "Profile" }} />
+      <MainStack.Screen name="Reviews" component={ReviewsScreen} options={{ title: "Reviews" }} />
+    </MainStack.Navigator>
   );
 }
 
@@ -76,7 +72,7 @@ export function AppNavigator() {
         {token == null ? (
           <Stack.Screen name="Login" component={LoginScreen} />
         ) : (
-          <Stack.Screen name="Main" component={MainTabs} />
+          <Stack.Screen name="Main" component={MainStackNavigator} />
         )}
       </Stack.Navigator>
     </NavigationContainer>
