@@ -95,15 +95,12 @@ export function MainHeaderMenu() {
             {[0, 1, 2].map((i) => (
               <View
                 key={i}
-                style={[
-                  styles.menuBtnBar,
-                  {
-                    width: m.barW,
-                    height: m.barH,
-                    borderRadius: m.barH / 2,
-                    backgroundColor: MENU_ICON_COLOR,
-                  },
-                ]}
+                style={{
+                  width: m.barW,
+                  height: m.barH,
+                  borderRadius: m.barH / 2,
+                  backgroundColor: MENU_ICON_COLOR,
+                }}
               />
             ))}
           </View>
@@ -199,7 +196,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  menuBtnBar: {},
   modalRoot: {
     flex: 1,
   },
