@@ -1,0 +1,12 @@
+# Monorepo: see the repository root `.gitignore` for the full ignore list.
+# Expo / Metro (paths below are relative to `mobile/`)
+
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+.metro-health-check*
+.kotlin/
+
+/android
+/ios
