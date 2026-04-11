@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { authorizedGet, InsightsData } from "../api";
 import { useAuth } from "../auth/AuthContext";
+import { AppFooter } from "../components/AppFooter";
 import { MetricCard } from "../components/MetricCard";
 import { colors, radii, spacing, typography } from "../theme";
 
@@ -74,6 +75,7 @@ export function DashboardScreen() {
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <StatusBar style="light" />
       <ScrollView
+        style={styles.fill}
         contentContainerStyle={styles.scroll}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />}
       >
@@ -134,6 +136,7 @@ export function DashboardScreen() {
           <Text style={styles.muted}>Loading…</Text>
         ) : null}
       </ScrollView>
+      <AppFooter />
     </SafeAreaView>
   );
 }

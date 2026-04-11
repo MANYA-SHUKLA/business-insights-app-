@@ -14,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { loginRequest } from "../api";
 import { useAuth } from "../auth/AuthContext";
+import { AppFooter } from "../components/AppFooter";
 import { colors, radii, spacing, typography } from "../theme";
 
 export function LoginScreen() {
@@ -44,11 +45,12 @@ export function LoginScreen() {
           behavior={Platform.OS === "ios" ? "padding" : undefined}
           style={styles.flex}
         >
-          <View style={styles.header}>
-            <Text style={styles.brand}>Business Insights</Text>
-            <Text style={styles.tagline}>Sign in to view your dashboard</Text>
-          </View>
-          <View style={styles.card}>
+          <View style={styles.centerBlock}>
+            <View style={styles.header}>
+              <Text style={styles.brand}>Business Insights</Text>
+              <Text style={styles.tagline}>Sign in to view your dashboard</Text>
+            </View>
+            <View style={styles.card}>
             <Text style={styles.fieldLabel}>Email</Text>
             <TextInput
               value={email}
@@ -86,7 +88,9 @@ export function LoginScreen() {
               )}
             </Pressable>
           </View>
+          </View>
         </KeyboardAvoidingView>
+        <AppFooter blendWithGradient />
       </SafeAreaView>
     </LinearGradient>
   );
@@ -95,7 +99,8 @@ export function LoginScreen() {
 const styles = StyleSheet.create({
   gradient: { flex: 1 },
   safe: { flex: 1 },
-  flex: { flex: 1, justifyContent: "center", paddingHorizontal: spacing.lg },
+  flex: { flex: 1 },
+  centerBlock: { flex: 1, justifyContent: "center", paddingHorizontal: spacing.lg },
   header: { marginBottom: spacing.xl },
   brand: { ...typography.title, color: colors.text, letterSpacing: 0.5 },
   tagline: { ...typography.body, color: colors.textMuted, marginTop: spacing.sm },
