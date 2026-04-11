@@ -46,19 +46,16 @@ export function MainHeaderMenu() {
         style={({ pressed }) => [styles.trigger, pressed && styles.triggerPressed]}
         accessibilityRole="button"
         accessibilityLabel="Open navigation menu"
-        android_ripple={{ color: "rgba(45, 212, 191, 0.22)", borderless: true }}
       >
-        <View style={styles.triggerElevation}>
-          <LinearGradient
-            colors={["rgba(255, 255, 255, 0.1)", colors.card, "#0f172a"]}
-            locations={[0, 0.35, 1]}
-            start={{ x: 0.15, y: 0 }}
-            end={{ x: 0.85, y: 1 }}
-            style={styles.triggerDisc}
-          >
-            <Ionicons name="menu-outline" size={23} color={colors.accent} />
-          </LinearGradient>
-        </View>
+        <LinearGradient
+          colors={["rgba(255, 255, 255, 0.1)", colors.card, "#0f172a"]}
+          locations={[0, 0.35, 1]}
+          start={{ x: 0.15, y: 0 }}
+          end={{ x: 0.85, y: 1 }}
+          style={styles.triggerDisc}
+        >
+          <Ionicons name="menu-outline" size={23} color={colors.accent} />
+        </LinearGradient>
       </Pressable>
 
       <Modal
