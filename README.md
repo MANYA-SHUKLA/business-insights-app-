@@ -77,6 +77,18 @@ business-insights-app/
 | POST | `/login` | Email + password → JWT |
 | GET | `/business`, `/insights`, `/reviews` | Require `Authorization: Bearer <token>` |
 
+### Data sources (what comes from where)
+
+Everything the app displays is **read from your MongoDB database** via the API. There is **no** built-in link to Google Business Profile, ad platforms, or other live analytics products.
+
+| App screen | API | MongoDB | What it is |
+|------------|-----|---------|------------|
+| **Insights** (metric cards + bar chart) | `GET /insights` | `insights` collection — `findOne()` | Five integer counters (profile views, search views, website clicks, phone calls, direction requests). **Demo values** come from `backend/scripts/seed.js`. The chart is built **in the mobile app** from those same five numbers, not from a separate time-series API. |
+| **Business profile** | `GET /business` | `business` collection — `findOne()` | One business document (name, category, address, phone, rating, review count). Seeded for demo. |
+| **Reviews** | `GET /reviews` | `bi_reviews` collection — all documents, sorted by date | List of review objects. Seeded for demo. |
+
+To change what users see, update the documents in MongoDB (e.g. Compass, `mongosh`), re-run seed, or extend the backend (e.g. admin PATCH routes or an integration that writes to these collections).
+
 ## Credentials
 
 | Kind | Where | What it is |
