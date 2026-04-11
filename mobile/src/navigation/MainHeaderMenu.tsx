@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useMemo, useState } from "react";
+import { Modal, PixelRatio, Pressable, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -26,6 +26,49 @@ const ITEMS: {
   { name: "Reviews", label: "Reviews", icon: "chatbubbles-outline" },
 ];
 
+/** Scales menu trigger + panel width with shortest window edge and font scale (accessibility). */
+function useMenuLayoutMetrics() {
+  const { width, height, fontScale } = useWindowDimensions();
+  return useMemo(() => {
+    const shortest = Math.min(width, height);
+    const baseRef = 390;
+    const sizeScale = Math.min(Math.max(shortest / baseRef, 0.9), 1.18);
+    const a11y = fontScale > 1 ? Math.min(fontScale, 1.35) : 1;
+    let side = 44 * sizeScale * (1 + (a11y - 1) * 0.35);
+    side = Math.min(Math.max(PixelRatio.roundToNearestPixel(side), 44), 58);
+    const bezel = Math.max(2, PixelRatio.roundToNearestPixel(side * 0.043));
+    const outerRadius = PixelRatio.roundToNearestPixel(side * 0.304);
+    const innerRadius = Math.max(8, outerRadius - bezel);
+    const barW = PixelRatio.roundToNearestPixel(side * 0.435);
+    const barWMid = PixelRatio.roundToNearestPixel(side * 0.304);
+    const barH = Math.max(2, PixelRatio.roundToNearestPixel(side * 0.054));
+    const barGap = PixelRatio.roundToNearestPixel(side * 0.087);
+    const horizontalPad = spacing.md * 2;
+    const menuPanelW = Math.min(PixelRatio.roundToNearestPixel(288 * sizeScale), width - horizontalPad);
+    const hitSlop =
+      side < 48
+        ? {
+            top: Math.ceil((48 - side) / 2),
+            bottom: Math.ceil((48 - side) / 2),
+            left: Math.ceil((48 - side) / 2),
+            right: Math.ceil((48 - side) / 2),
+          }
+        : undefined;
+    return {
+      side,
+      bezel,
+      outerRadius,
+      innerRadius,
+      barW,
+      barWMid,
+      barH,
+      barGap,
+      menuPanelW,
+      hitSlop,
+    };
+  }, [width, height, fontScale]);
+}
+
 export function MainHeaderMenu() {
   const [open, setOpen] = useState(false);
   const navigation = useNavigation<MainNav>();
@@ -33,6 +76,7 @@ export function MainHeaderMenu() {
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
   const menuTop = insets.top + headerHeight + spacing.xs;
+  const m = useMenuLayoutMetrics();
 
   function go(name: keyof MainStackParamList) {
     setOpen(false);
@@ -43,33 +87,56 @@ export function MainHeaderMenu() {
     <>
       <Pressable
         onPress={() => setOpen(true)}
+        hitSlop={m.hitSlop}
         style={({ pressed }) => [styles.trigger, pressed && styles.triggerPressed]}
         accessibilityRole="button"
         accessibilityLabel="Open navigation menu"
       >
-        <View style={styles.triggerGlow}>
+        <View
+          style={[
+            styles.triggerGlow,
+            { width: m.side, height: m.side, borderRadius: m.outerRadius },
+          ]}
+        >
           <LinearGradient
             colors={["rgba(94, 234, 212, 0.75)", colors.accent, "rgba(13, 148, 136, 0.9)"]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
-            style={styles.triggerBezel}
+            style={{
+              width: m.side,
+              height: m.side,
+              borderRadius: m.outerRadius,
+              padding: m.bezel,
+            }}
           >
             <LinearGradient
               colors={["#334155", colors.card, "#0b1220"]}
               locations={[0, 0.45, 1]}
               start={{ x: 0.2, y: 0 }}
               end={{ x: 0.85, y: 1 }}
-              style={styles.triggerFace}
+              style={[styles.triggerFace, { borderRadius: m.innerRadius }]}
             >
               <LinearGradient
                 colors={["rgba(255, 255, 255, 0.16)", "rgba(255, 255, 255, 0)", "transparent"]}
-                style={styles.triggerSheen}
+                style={[
+                  styles.triggerSheen,
+                  {
+                    borderTopLeftRadius: m.innerRadius,
+                    borderTopRightRadius: m.innerRadius,
+                  },
+                ]}
                 pointerEvents="none"
               />
-              <View style={styles.hamburger} pointerEvents="none">
-                <View style={styles.hBar} />
-                <View style={[styles.hBar, styles.hBarMid]} />
-                <View style={styles.hBar} />
+              <View style={[styles.hamburger, { gap: m.barGap }]} pointerEvents="none">
+                <View style={[styles.hBar, { width: m.barW, height: m.barH, borderRadius: m.barH / 2 }]} />
+                <View
+                  style={[
+                    styles.hBar,
+                    styles.hBarMid,
+                    { width: m.barWMid, height: m.barH, borderRadius: m.barH / 2 },
+                  ]}
+                />
+                <View style={[styles.hBar, { width: m.barW, height: m.barH, borderRadius: m.barH / 2 }]} />
               </View>
             </LinearGradient>
           </LinearGradient>
@@ -85,7 +152,10 @@ export function MainHeaderMenu() {
       >
         <View style={styles.modalRoot}>
           <Pressable style={styles.backdrop} onPress={() => setOpen(false)} accessibilityLabel="Close menu" />
-          <View style={[styles.menuAnchor, { top: menuTop, right: spacing.md }]} pointerEvents="box-none">
+          <View
+            style={[styles.menuAnchor, { top: menuTop, right: spacing.md, width: m.menuPanelW }]}
+            pointerEvents="box-none"
+          >
             <LinearGradient
               colors={["#1e293b", colors.card, colors.bgElevated]}
               start={{ x: 0, y: 0 }}
@@ -145,24 +215,14 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   triggerGlow: {
-    width: 46,
-    height: 46,
-    borderRadius: radii.md,
     shadowColor: colors.accent,
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.4,
     shadowRadius: 10,
     elevation: 8,
   },
-  triggerBezel: {
-    width: 46,
-    height: 46,
-    borderRadius: radii.md,
-    padding: 2,
-  },
   triggerFace: {
     flex: 1,
-    borderRadius: radii.sm + 2,
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
@@ -173,22 +233,15 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: "48%",
-    borderTopLeftRadius: radii.sm + 2,
-    borderTopRightRadius: radii.sm + 2,
   },
   hamburger: {
     justifyContent: "center",
     alignItems: "center",
-    gap: 4,
   },
   hBar: {
-    width: 20,
-    height: 2.5,
-    borderRadius: 1.25,
     backgroundColor: colors.accent,
   },
   hBarMid: {
-    width: 14,
     opacity: 0.95,
   },
   modalRoot: {
@@ -200,8 +253,7 @@ const styles = StyleSheet.create({
   },
   menuAnchor: {
     position: "absolute",
-    width: 288,
-    maxWidth: "88%",
+    maxWidth: "92%",
   },
   menuCard: {
     borderRadius: radii.lg,
