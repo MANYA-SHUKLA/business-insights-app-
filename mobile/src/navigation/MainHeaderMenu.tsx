@@ -129,16 +129,6 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.91 }],
     opacity: 0.88,
   },
-  triggerElevation: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.55,
-    shadowRadius: 8,
-    elevation: 8,
-  },
   triggerDisc: {
     width: 44,
     height: 44,
@@ -146,8 +136,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "rgba(148, 163, 184, 0.35)",
   },
   modalRoot: {
     flex: 1,
