@@ -77,58 +77,36 @@ export function MainHeaderMenu() {
       <Pressable
         onPress={() => setOpen(true)}
         hitSlop={m.hitSlop}
-        style={({ pressed }) => [styles.trigger, pressed && styles.triggerPressed]}
+        style={({ pressed }) => [styles.menuBtnPressable, pressed && styles.menuBtnPressablePressed]}
         accessibilityRole="button"
         accessibilityLabel="Open navigation menu"
       >
         <View
           style={[
-            styles.triggerGlow,
-            { width: m.side, height: m.side, borderRadius: m.outerRadius },
+            styles.menuBtnCircle,
+            {
+              width: m.diameter,
+              height: m.diameter,
+              borderRadius: m.radius,
+            },
           ]}
         >
-          <LinearGradient
-            colors={["rgba(94, 234, 212, 0.75)", colors.accent, "rgba(13, 148, 136, 0.9)"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={{
-              width: m.side,
-              height: m.side,
-              borderRadius: m.outerRadius,
-              padding: m.bezel,
-            }}
-          >
-            <LinearGradient
-              colors={["#334155", colors.card, "#0b1220"]}
-              locations={[0, 0.45, 1]}
-              start={{ x: 0.2, y: 0 }}
-              end={{ x: 0.85, y: 1 }}
-              style={[styles.triggerFace, { borderRadius: m.innerRadius }]}
-            >
-              <LinearGradient
-                colors={["rgba(255, 255, 255, 0.16)", "rgba(255, 255, 255, 0)", "transparent"]}
+          <View style={[styles.menuBtnHamburger, { gap: m.barGap }]} pointerEvents="none">
+            {[0, 1, 2].map((i) => (
+              <View
+                key={i}
                 style={[
-                  styles.triggerSheen,
+                  styles.menuBtnBar,
                   {
-                    borderTopLeftRadius: m.innerRadius,
-                    borderTopRightRadius: m.innerRadius,
+                    width: m.barW,
+                    height: m.barH,
+                    borderRadius: m.barH / 2,
+                    backgroundColor: MENU_ICON_COLOR,
                   },
                 ]}
-                pointerEvents="none"
               />
-              <View style={[styles.hamburger, { gap: m.barGap }]} pointerEvents="none">
-                <View style={[styles.hBar, { width: m.barW, height: m.barH, borderRadius: m.barH / 2 }]} />
-                <View
-                  style={[
-                    styles.hBar,
-                    styles.hBarMid,
-                    { width: m.barWMid, height: m.barH, borderRadius: m.barH / 2 },
-                  ]}
-                />
-                <View style={[styles.hBar, { width: m.barW, height: m.barH, borderRadius: m.barH / 2 }]} />
-              </View>
-            </LinearGradient>
-          </LinearGradient>
+            ))}
+          </View>
         </View>
       </Pressable>
 
@@ -196,43 +174,32 @@ export function MainHeaderMenu() {
 }
 
 const styles = StyleSheet.create({
-  trigger: {
+  menuBtnPressable: {
     marginRight: spacing.sm,
   },
-  triggerPressed: {
-    transform: [{ scale: 0.94 }],
-    opacity: 0.9,
+  /** Uniform scale only — keeps a perfect circle; no width/height animation. */
+  menuBtnPressablePressed: {
+    transform: [{ scale: 0.96 }],
+    opacity: 0.88,
   },
-  triggerGlow: {
-    shadowColor: colors.accent,
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
-    elevation: 8,
-  },
-  triggerFace: {
-    flex: 1,
+  menuBtnCircle: {
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: colors.card,
     overflow: "hidden",
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "rgba(45, 212, 191, 0.35)",
+    shadowColor: MENU_ICON_COLOR,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.35,
+    shadowRadius: 8,
+    elevation: 6,
   },
-  triggerSheen: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: "48%",
-  },
-  hamburger: {
-    justifyContent: "center",
+  menuBtnHamburger: {
     alignItems: "center",
+    justifyContent: "center",
   },
-  hBar: {
-    backgroundColor: colors.accent,
-  },
-  hBarMid: {
-    opacity: 0.95,
-  },
+  menuBtnBar: {},
   modalRoot: {
     flex: 1,
   },
