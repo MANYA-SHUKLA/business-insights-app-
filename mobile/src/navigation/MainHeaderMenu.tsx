@@ -47,15 +47,11 @@ export function MainHeaderMenu() {
         accessibilityRole="button"
         accessibilityLabel="Open navigation menu"
       >
-        <LinearGradient
-          colors={["rgba(255, 255, 255, 0.1)", colors.card, "#0f172a"]}
-          locations={[0, 0.35, 1]}
-          start={{ x: 0.15, y: 0 }}
-          end={{ x: 0.85, y: 1 }}
-          style={styles.triggerDisc}
-        >
-          <Ionicons name="menu-outline" size={23} color={colors.accent} />
-        </LinearGradient>
+        <View style={styles.hamburger} pointerEvents="none">
+          <View style={styles.hBar} />
+          <View style={styles.hBar} />
+          <View style={styles.hBar} />
+        </View>
       </Pressable>
 
       <Modal
@@ -121,18 +117,26 @@ export function MainHeaderMenu() {
 const styles = StyleSheet.create({
   trigger: {
     marginRight: spacing.sm,
+    minWidth: 44,
+    minHeight: 44,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
   },
   triggerPressed: {
-    transform: [{ scale: 0.91 }],
-    opacity: 0.88,
+    opacity: 0.65,
   },
-  triggerDisc: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    alignItems: "center",
+  hamburger: {
     justifyContent: "center",
-    overflow: "hidden",
+    alignItems: "center",
+    gap: 5,
+  },
+  hBar: {
+    width: 22,
+    height: 3,
+    borderRadius: 1.5,
+    backgroundColor: colors.accent,
   },
   modalRoot: {
     flex: 1,
