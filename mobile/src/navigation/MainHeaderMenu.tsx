@@ -81,30 +81,34 @@ export function MainHeaderMenu() {
         accessibilityRole="button"
         accessibilityLabel="Open navigation menu"
       >
-        <View
-          style={[
-            styles.menuBtnCircle,
-            {
-              width: m.diameter,
-              height: m.diameter,
-              borderRadius: m.radius,
-            },
-          ]}
-        >
-          <View style={[styles.menuBtnHamburger, { gap: m.barGap }]} pointerEvents="none">
-            {[0, 1, 2].map((i) => (
-              <View
-                key={i}
-                style={{
-                  width: m.barW,
-                  height: m.barH,
-                  borderRadius: m.barH / 2,
-                  backgroundColor: MENU_ICON_COLOR,
-                }}
-              />
-            ))}
+        {({ pressed }) => (
+          <View
+            style={[
+              styles.menuBtnCircle,
+              {
+                width: m.diameter,
+                height: m.diameter,
+                borderRadius: m.radius,
+              },
+              pressed && styles.menuBtnCirclePressed,
+            ]}
+          >
+            <View style={[styles.menuBtnHamburger, { gap: m.barGap }]} pointerEvents="none">
+              {[0, 1, 2].map((i) => (
+                <View
+                  key={i}
+                  style={{
+                    width: m.barW,
+                    height: m.barH,
+                    borderRadius: m.barH / 2,
+                    backgroundColor: MENU_ICON_COLOR,
+                    opacity: pressed ? 0.92 : 1,
+                  }}
+                />
+              ))}
+            </View>
           </View>
-        </View>
+        )}
       </Pressable>
 
       <Modal
