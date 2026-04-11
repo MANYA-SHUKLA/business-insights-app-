@@ -178,10 +178,9 @@ const styles = StyleSheet.create({
   menuBtnPressable: {
     marginRight: spacing.sm,
   },
-  /** Uniform scale only — keeps a perfect circle; no width/height animation. */
+  /** Uniform scale only — circle stays circular; no layout dimension changes. */
   menuBtnPressablePressed: {
     transform: [{ scale: 0.96 }],
-    opacity: 0.88,
   },
   menuBtnCircle: {
     alignItems: "center",
@@ -195,6 +194,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.35,
     shadowRadius: 8,
     elevation: 6,
+  },
+  menuBtnCirclePressed: {
+    backgroundColor: colors.bgElevated,
+    borderColor: "rgba(45, 212, 191, 0.48)",
   },
   menuBtnHamburger: {
     alignItems: "center",
