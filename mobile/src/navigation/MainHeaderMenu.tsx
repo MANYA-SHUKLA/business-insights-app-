@@ -8,6 +8,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors, radii, spacing, typography } from "../theme";
 
+/** Menu icon accent — matches theme `colors.accent` / teal spec #2dd4bf */
+const MENU_ICON_COLOR = "#2dd4bf";
+
 export type MainStackParamList = {
   Dashboard: undefined;
   Business: undefined;
@@ -26,46 +29,32 @@ const ITEMS: {
   { name: "Reviews", label: "Reviews", icon: "chatbubbles-outline" },
 ];
 
-/** Scales menu trigger + panel width with shortest window edge and font scale (accessibility). */
+/** Dropdown width + circular menu button (always width === height, radius = diameter/2). */
 function useMenuLayoutMetrics() {
   const { width, height, fontScale } = useWindowDimensions();
   return useMemo(() => {
     const shortest = Math.min(width, height);
     const baseRef = 390;
-    const sizeScale = Math.min(Math.max(shortest / baseRef, 0.9), 1.18);
+    const sizeScale = Math.min(Math.max(shortest / baseRef, 0.9), 1.15);
     const a11y = fontScale > 1 ? Math.min(fontScale, 1.35) : 1;
-    let side = 44 * sizeScale * (1 + (a11y - 1) * 0.35);
-    side = Math.min(Math.max(PixelRatio.roundToNearestPixel(side), 44), 58);
-    const bezel = Math.max(2, PixelRatio.roundToNearestPixel(side * 0.043));
-    const outerRadius = PixelRatio.roundToNearestPixel(side * 0.304);
-    const innerRadius = Math.max(8, outerRadius - bezel);
-    const barW = PixelRatio.roundToNearestPixel(side * 0.435);
-    const barWMid = PixelRatio.roundToNearestPixel(side * 0.304);
-    const barH = Math.max(2, PixelRatio.roundToNearestPixel(side * 0.054));
-    const barGap = PixelRatio.roundToNearestPixel(side * 0.087);
+    let diameter = 44 * sizeScale * (1 + (a11y - 1) * 0.3);
+    diameter = Math.min(Math.max(PixelRatio.roundToNearestPixel(diameter), 44), 56);
+    const radius = diameter / 2;
+    const barW = PixelRatio.roundToNearestPixel(diameter * 0.38);
+    const barH = Math.max(2, PixelRatio.roundToNearestPixel(diameter * 0.062));
+    const barGap = PixelRatio.roundToNearestPixel(diameter * 0.09);
     const horizontalPad = spacing.md * 2;
     const menuPanelW = Math.min(PixelRatio.roundToNearestPixel(288 * sizeScale), width - horizontalPad);
     const hitSlop =
-      side < 48
+      diameter < 48
         ? {
-            top: Math.ceil((48 - side) / 2),
-            bottom: Math.ceil((48 - side) / 2),
-            left: Math.ceil((48 - side) / 2),
-            right: Math.ceil((48 - side) / 2),
+            top: Math.ceil((48 - diameter) / 2),
+            bottom: Math.ceil((48 - diameter) / 2),
+            left: Math.ceil((48 - diameter) / 2),
+            right: Math.ceil((48 - diameter) / 2),
           }
         : undefined;
-    return {
-      side,
-      bezel,
-      outerRadius,
-      innerRadius,
-      barW,
-      barWMid,
-      barH,
-      barGap,
-      menuPanelW,
-      hitSlop,
-    };
+    return { diameter, radius, barW, barH, barGap, menuPanelW, hitSlop };
   }, [width, height, fontScale]);
 }
 
