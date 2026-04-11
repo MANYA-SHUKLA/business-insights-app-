@@ -46,32 +46,17 @@ export function MainHeaderMenu() {
         style={({ pressed }) => [styles.trigger, pressed && styles.triggerPressed]}
         accessibilityRole="button"
         accessibilityLabel="Open navigation menu"
-        android_ripple={{ color: "rgba(45, 212, 191, 0.35)", foreground: true }}
+        android_ripple={{ color: "rgba(45, 212, 191, 0.22)", borderless: true }}
       >
-        <View style={styles.triggerShadow}>
+        <View style={styles.triggerElevation}>
           <LinearGradient
-            colors={["rgba(94, 234, 212, 0.85)", colors.accentDark, "rgba(45, 212, 191, 0.45)"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.triggerGem}
+            colors={["rgba(255, 255, 255, 0.1)", colors.card, "#0f172a"]}
+            locations={[0, 0.35, 1]}
+            start={{ x: 0.15, y: 0 }}
+            end={{ x: 0.85, y: 1 }}
+            style={styles.triggerDisc}
           >
-            <LinearGradient
-              colors={["#243548", "#151d30", "#0d1424"]}
-              start={{ x: 0.15, y: 0 }}
-              end={{ x: 0.85, y: 1 }}
-              style={styles.triggerFace}
-            >
-              <LinearGradient
-                colors={["rgba(255, 255, 255, 0.14)", "rgba(255, 255, 255, 0)", "transparent"]}
-                style={styles.triggerSheen}
-                pointerEvents="none"
-              />
-              <View style={styles.hamburger} pointerEvents="none">
-                <View style={styles.hBar} />
-                <View style={[styles.hBar, styles.hBarMid]} />
-                <View style={styles.hBar} />
-              </View>
-            </LinearGradient>
+            <Ionicons name="menu-outline" size={23} color={colors.accent} />
           </LinearGradient>
         </View>
       </Pressable>
@@ -139,56 +124,40 @@ export function MainHeaderMenu() {
 const styles = StyleSheet.create({
   trigger: {
     marginRight: spacing.sm,
-    borderRadius: radii.md + 2,
   },
   triggerPressed: {
-    opacity: 0.92,
-    transform: [{ scale: 0.94 }],
+    transform: [{ scale: 0.91 }],
+    opacity: 0.88,
   },
-  triggerShadow: {
-    borderRadius: radii.md + 2,
-    shadowColor: colors.accent,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 12,
-    elevation: 10,
+  triggerElevation: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.55,
+    shadowRadius: 8,
+    elevation: 8,
   },
-  triggerGem: {
-    width: 46,
-    height: 46,
-    borderRadius: radii.md + 2,
-    padding: 1.5,
-  },
-  triggerFace: {
-    flex: 1,
-    borderRadius: radii.md,
+  triggerDisc: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "rgba(45, 212, 191, 0.28)",
   },
-  triggerSheen: {
+  triggerRim: {
     position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: "50%",
-    borderTopLeftRadius: radii.md,
-    borderTopRightRadius: radii.md,
-  },
-  hamburger: {
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 5,
-  },
-  hBar: {
-    width: 20,
-    height: 3,
-    borderRadius: 1.5,
-    backgroundColor: colors.accent,
-  },
-  hBarMid: {
-    width: 13,
-    opacity: 0.88,
+    top: 3,
+    left: 3,
+    right: 3,
+    bottom: 3,
+    borderRadius: 19,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "rgba(255, 255, 255, 0.08)",
   },
   modalRoot: {
     flex: 1,
