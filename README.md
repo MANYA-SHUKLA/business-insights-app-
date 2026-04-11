@@ -114,9 +114,9 @@ From `mobile/`: `npm install`, then `npx expo start`. Open the project in **Expo
 
 On the login screen, use the **demo** email and password from the table above (after a successful seed). Then:
 
-- **Home / dashboard** — metric cards and chart from `/insights`.
-- **Business** tab — profile from `/business`.
-- **Reviews** tab — list from `/reviews`.
+- Tap the **menu** (top right), choose **Insights** — metric cards and chart from `/insights`.
+- **Business profile** — from `/business`.
+- **Reviews** — list from `/reviews`.
 
 Sign out from the app if you need to test login again.
 
