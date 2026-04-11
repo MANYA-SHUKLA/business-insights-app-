@@ -82,7 +82,7 @@ business-insights-app/
 |------|--------|------------|
 | **MongoDB connection** | `backend/.env` → `MONGODB_URI` | Atlas SRV string; it embeds your **database username and password**. Never commit `.env` or paste the full URI in public docs. |
 | **JWT signing key** | `backend/.env` → `JWT_SECRET` | Secret used to sign login tokens. If leaked, someone could mint fake tokens. Use a long random value; same variable on Render. |
-| **Demo sign-in (app)** | Created by `npm run seed` | Local/demo only. After seeding, the app login screen uses: **email** `demo@example.com`, **password** `demo1234`. Seeding **wipes** users and sample data—do not rely on this for production. |
+| **Demo sign-in (app)** | Created by `npm run seed` | Local/demo only. After seeding, the app login screen uses: **email** `shuklamanya99@gmail.com`, **password** `demo1234`. Seeding **wipes** users and sample data—do not rely on this for production. |
 | **Session token (JWT)** | Returned by `POST /login` | The mobile app and Postman store this as `Bearer` token for `/business`, `/insights`, `/reviews`. Treat it like a password while it is valid; do not commit or screenshot it. |
 
 There are no other built-in accounts: add users in MongoDB (or extend the API) if you need more than the seeded demo user.

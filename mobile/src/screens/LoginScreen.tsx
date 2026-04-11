@@ -18,7 +18,7 @@ import { colors, radii, spacing, typography } from "../theme";
 
 export function LoginScreen() {
   const { signIn } = useAuth();
-  const [email, setEmail] = useState("demo@example.com");
+  const [email, setEmail] = useState("shuklamanya99@gmail.com");
   const [password, setPassword] = useState("demo1234");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);

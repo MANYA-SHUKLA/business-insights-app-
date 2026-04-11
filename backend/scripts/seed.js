@@ -23,7 +23,7 @@ async function run() {
     Review.deleteMany({}),
   ]);
   const hash = await bcrypt.hash("demo1234", 10);
-  await User.create({ email: "demo@example.com", password: hash });
+  await User.create({ email: "shuklamanya99@gmail.com", password: hash });
   await Business.create({
     name: "ABC Salon",
     category: "Beauty Salon",
@@ -44,7 +44,7 @@ async function run() {
     { name: "Priya", rating: 4, comment: "Nice experience", date: new Date("2026-03-18T00:00:00.000Z") },
   ]);
   console.log("[seed] Seed completed successfully (business_app_users, business, insights, bi_reviews).");
-  console.log("[seed] Demo login: demo@example.com / demo1234");
+  console.log("[seed] Demo login: shuklamanya99@gmail.com / demo1234");
   await mongoose.disconnect();
   console.log("[seed] MongoDB disconnected.");
 }

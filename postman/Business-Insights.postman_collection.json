@@ -29,7 +29,7 @@
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"email\": \"demo@example.com\",\n  \"password\": \"demo1234\"\n}"
+          "raw": "{\n  \"email\": \"shuklamanya99@gmail.com\",\n  \"password\": \"demo1234\"\n}"
         },
         "url": "{{base_url}}/login"
       }
