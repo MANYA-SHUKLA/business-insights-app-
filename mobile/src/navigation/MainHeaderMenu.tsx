@@ -46,10 +46,34 @@ export function MainHeaderMenu() {
         style={({ pressed }) => [styles.trigger, pressed && styles.triggerPressed]}
         accessibilityRole="button"
         accessibilityLabel="Open navigation menu"
+        android_ripple={{ color: "rgba(45, 212, 191, 0.35)", foreground: true }}
       >
-        <LinearGradient colors={[colors.accentGlow, "rgba(45, 212, 191, 0.08)"]} style={styles.triggerInner}>
-          <Ionicons name="menu" size={22} color={colors.accent} />
-        </LinearGradient>
+        <View style={styles.triggerShadow}>
+          <LinearGradient
+            colors={["rgba(94, 234, 212, 0.85)", colors.accentDark, "rgba(45, 212, 191, 0.45)"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.triggerGem}
+          >
+            <LinearGradient
+              colors={["#243548", "#151d30", "#0d1424"]}
+              start={{ x: 0.15, y: 0 }}
+              end={{ x: 0.85, y: 1 }}
+              style={styles.triggerFace}
+            >
+              <LinearGradient
+                colors={["rgba(255, 255, 255, 0.14)", "rgba(255, 255, 255, 0)", "transparent"]}
+                style={styles.triggerSheen}
+                pointerEvents="none"
+              />
+              <View style={styles.hamburger} pointerEvents="none">
+                <View style={styles.hBar} />
+                <View style={[styles.hBar, styles.hBarMid]} />
+                <View style={styles.hBar} />
+              </View>
+            </LinearGradient>
+          </LinearGradient>
+        </View>
       </Pressable>
 
       <Modal
@@ -115,18 +139,56 @@ export function MainHeaderMenu() {
 const styles = StyleSheet.create({
   trigger: {
     marginRight: spacing.sm,
-    borderRadius: radii.md,
-    overflow: "hidden",
+    borderRadius: radii.md + 2,
   },
-  triggerPressed: { opacity: 0.85, transform: [{ scale: 0.96 }] },
-  triggerInner: {
-    width: 42,
-    height: 42,
+  triggerPressed: {
+    opacity: 0.92,
+    transform: [{ scale: 0.94 }],
+  },
+  triggerShadow: {
+    borderRadius: radii.md + 2,
+    shadowColor: colors.accent,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 12,
+    elevation: 10,
+  },
+  triggerGem: {
+    width: 46,
+    height: 46,
+    borderRadius: radii.md + 2,
+    padding: 1.5,
+  },
+  triggerFace: {
+    flex: 1,
+    borderRadius: radii.md,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: radii.md,
-    borderWidth: 1,
-    borderColor: "rgba(45, 212, 191, 0.35)",
+    overflow: "hidden",
+  },
+  triggerSheen: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "50%",
+    borderTopLeftRadius: radii.md,
+    borderTopRightRadius: radii.md,
+  },
+  hamburger: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 5,
+  },
+  hBar: {
+    width: 20,
+    height: 3,
+    borderRadius: 1.5,
+    backgroundColor: colors.accent,
+  },
+  hBarMid: {
+    width: 13,
+    opacity: 0.88,
   },
   modalRoot: {
     flex: 1,
