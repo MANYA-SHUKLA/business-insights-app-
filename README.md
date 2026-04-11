@@ -3,7 +3,7 @@
 **Business Insights** is a small-business analytics-style demo: a logged-in owner sees marketing-style metrics (profile views, search views, website clicks, calls, direction requests), a business profile card, and a list of customer reviews. The product is a **monorepo** with three parts working together:
 
 - **Backend** — Express REST API with JWT auth, MongoDB (Mongoose) for users and data, OpenAPI spec, and Swagger UI for exploring endpoints.
-- **Mobile app** — React Native (Expo) client: sign-in, tabbed home with dashboard charts and metric cards, business profile screen, and reviews screen.
+- **Mobile app** — React Native (Expo) client: sign-in, then a header menu (top right) to open Insights, Business profile, and Reviews.
 - **Postman** — Ready-to-import collection and environments to call the same API as the app.
 
 Typical flow: seed the database, start the API, open the mobile app, log in, and browse insights and reviews backed by MongoDB.
@@ -53,7 +53,8 @@ business-insights-app/
 │       │   ├── MetricCard.tsx
 │       │   └── StarsRow.tsx
 │       ├── navigation/
-│       │   └── AppNavigator.tsx
+│       │   ├── AppNavigator.tsx
+│       │   └── MainHeaderMenu.tsx
 │       └── screens/
 │           ├── LoginScreen.tsx
 │           ├── DashboardScreen.tsx
