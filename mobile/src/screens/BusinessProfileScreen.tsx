@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { authorizedGet, BusinessData } from "../api";
 import { useAuth } from "../auth/AuthContext";
+import { AppFooter } from "../components/AppFooter";
 import { StarsRow } from "../components/StarsRow";
 import { colors, radii, spacing, typography } from "../theme";
 
@@ -65,6 +66,7 @@ export function BusinessProfileScreen() {
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <StatusBar style="light" />
       <ScrollView
+        style={styles.fill}
         contentContainerStyle={styles.scroll}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />}
       >
@@ -97,13 +99,15 @@ export function BusinessProfileScreen() {
           <Text style={styles.muted}>Loading…</Text>
         ) : null}
       </ScrollView>
+      <AppFooter />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
-  scroll: { padding: spacing.lg, paddingBottom: spacing.xl * 2 },
+  fill: { flex: 1 },
+  scroll: { padding: spacing.lg, paddingBottom: spacing.lg },
   title: { ...typography.title, color: colors.text },
   sub: { ...typography.body, color: colors.textMuted, marginTop: spacing.xs, marginBottom: spacing.lg },
   err: { color: colors.error, marginBottom: spacing.md },

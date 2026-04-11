@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { authorizedGet, ReviewItem } from "../api";
 import { useAuth } from "../auth/AuthContext";
+import { AppFooter } from "../components/AppFooter";
 import { StarsRow } from "../components/StarsRow";
 import { colors, radii, spacing, typography } from "../theme";
 
@@ -63,6 +64,7 @@ export function ReviewsScreen() {
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <StatusBar style="light" />
       <FlatList
+        style={styles.fill}
         data={items}
         keyExtractor={(it, i) => `${it.name}-${it.date}-${i}`}
         renderItem={({ item }) => <ReviewCard item={item} />}
@@ -79,6 +81,7 @@ export function ReviewsScreen() {
         }
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />}
       />
+      <AppFooter />
     </SafeAreaView>
   );
 }

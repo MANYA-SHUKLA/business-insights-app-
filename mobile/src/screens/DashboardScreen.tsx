@@ -143,7 +143,8 @@ export function DashboardScreen() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
-  scroll: { padding: spacing.lg, paddingBottom: spacing.xl * 2 },
+  fill: { flex: 1 },
+  scroll: { padding: spacing.lg, paddingBottom: spacing.lg },
   title: { ...typography.title, color: colors.text },
   sub: { ...typography.body, color: colors.textMuted, marginTop: spacing.xs, marginBottom: spacing.lg },
   grid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" },
