@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const insightsSchema = new mongoose.Schema(
   {
     profile_views: { type: Number, required: true },
