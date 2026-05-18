@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { colors, spacing } from "../theme";
-
 type Props = { rating: number; size?: number };
 
 export function StarsRow({ rating, size = 16 }: Props) {
