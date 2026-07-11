@@ -1,6 +1,5 @@
 # --- Dependencies ---
 node_modules/
-
 # --- Environment & secrets (keep *.example for docs) ---
 .env
 .env.*
